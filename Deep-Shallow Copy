@@ -1,0 +1,38 @@
+Shallow Copy
+------------
+elimizde original bir container var diyelim. biz o container in shallow copy sini oluşturursak, elimizde ki iki container da aynı object leri gösterir. 
+
+diyelim ki original container'da ki bir objeyi değiştirdiğimizde, shallow copy container'da ki obje de değişir. tam tersi de aynıdır.
+
+!! original ve shallow_copy aynı container değildir. fakat elemanları aynı objeleri reference eder.
+
+***
+	bu container'ların elemanlarını add/remove/replace etmek, birbirlerini etkilemez.
+	
+	ANCAK bir elemanı mutate etmek iki container'i de etkiler. çünkü o eleman bir shared reference.
+
+
+Creating Shallow Copies
+-----------------------
+* slicing kullanarak tüm sequence i alarak ->	my_list[:]
+* copy metodunu kullanarak ->	my_list.copy()
+
+	my_list = [1,2,3]
+	my_copy = my_list[:]
+	my_copy = my_list.copy()
+
+* my_list[0] is my_copy[0] -> True
+
+
+Creating Deep Copies
+--------------------
+* copy modülündeki deepcopy fonksiyonunu kullanarak deep copy ler oluşturabiliriz.
+* standard bir library ama built-in değil, yani import etmemiz lazım.
+
+	from copy import deepcopy
+	my_list = [['a','b'], 2, 3]
+	my_copy = deepcopy(my_list)
+
+	my_list[0] is my_copy[0] -> False // element has been copied too!
+
+* deep copy yapmak maliyetlidir.
