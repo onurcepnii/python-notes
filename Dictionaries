@@ -103,7 +103,8 @@ hash() fonksiyonu kullanarak hashable olup olmadığını öğrenebiliriz.
 
 globals()
 ---------
-Python'da globals() fonksiyonu, global (küresel) isim alanındaki tüm değişkenleri ve bunların değerlerini bir sözlük (dictionary) olarak döndürür. Bu, özellikle kodun çalışma zamanında (runtime) global değişkenlerle dinamik olarak çalışmak istendiğinde kullanılır.
+Python'da globals() fonksiyonu, global (küresel) isim alanındaki tüm değişkenleri ve bunların değerlerini bir sözlük (dictionary) olarak döndürür. 
+Bu, özellikle kodun çalışma zamanında (runtime) global değişkenlerle dinamik olarak çalışmak istendiğinde kullanılır.
 
 globals() sadece global scope için geçerlidir. Fonksiyon içinde çağrıldığında bile, bulunduğun modülün global değişkenlerini verir.
 
@@ -313,7 +314,8 @@ Example:
 
 fromkeys() methodu
 ------------------
-Dict veri tipiyle birlikte kullanılan bir yardımcı metottur. Bu metot, bir anahtar listesine karşılık gelen sözlük oluşturmak için kullanılır ve her anahtara aynı varsayılan değeri atar.
+Dict veri tipiyle birlikte kullanılan bir yardımcı metottur. 
+Bu metot, bir anahtar listesine karşılık gelen sözlük oluşturmak için kullanılır ve her anahtara aynı varsayılan değeri atar.
 
 (1) Sadece key ile
 
