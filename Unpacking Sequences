@@ -1,0 +1,43 @@
+Unpacking Sequences
+-------------------
+
+	a, b, c = (1, 2, 3)
+
+* since tuple's don't actually need the parentheses in this case, we can write:
+
+	a, b, c = 1, 2, 3 // a = 1, b = 2, c = 3
+
+	a, b, c = 'XYZ'	// a = 'X', b = 'Y', c = 'Z'
+
+
+* number of elements in sequence on RHS must match number of symbols on LHS
+	
+	a, b = 1, 2, 3 // ValueError
+
+	a, b, c = 1, 2 // ValueError
+
+
+Swapping Two Variable Values
+----------------------------
+can use unpacking to our advantage
+remember: in assignment, the RHS expression is evaluated completely first
+	then the assignment takes places
+
+	a, b = b, a
+
+	-> RHS is evaluated first	b, a is the tople 20, 10
+	-> then the assignment is made a, b = 20, 10
+	-> values of a and b have been swapped!
+
+
+
+
+
+
+
+
+
+
+
+
+

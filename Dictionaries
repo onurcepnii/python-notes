@@ -1,0 +1,312 @@
+
+Associating things
+
+
+another approach
+----------------
+
+items = [('A', 65), ... , ('Z', 90), ('a', 97), ... , ('z', 122)]
+
+Hash Maps (aka Dictionaries)
+----------------------------
+yukarıdaki yaklaşımdan daha iyi.
+
+but a special mechanism is used to quickly find a key
+	-> lookup speed is not affected by size of dictionary
+
+IMPORTANT -> keys must be hashable
+
+-> strings are hashable		-> numerics are hashable
+-> tuples may be hashable (if all the elements are themselves hashable)
+-> lists are not hashable (in general, mutable objects are not hashable)
+
+
+Python Dictionaries
+-------------------
+-> a dictionary is a data structure that associates a value to a key
+	-> both value and key are Python objects
+	-> key must be hashable type (e.g. str, int, bool, float) and unique
+	-> value can be any type
+	-> type is 'dict'
+	-> it is a collection of key:value pairs
+	-> it is iterable
+		-> but it is not a sequence type
+		-> value are looked up by key, not by index
+		-> technically there is no ordering in a dictionary
+
+	-> it isa mutable collection
+
+Dictionary Literals
+-------------------
+-> dictionaries can be creating using literals
+
+	d = {'a' : 97, 'b' : 98, A : 65}
+
+
+Looking up values in a Dictionary
+---------------------------------
+-> use [] just like for sequence types
+	-> but instead of an index value we specify the key
+
+	d['a'] -> 97
+	d['b'] -> 98
+
+
+Replacing the Value of an existing Key
+--------------------------------------
+
+	d = {
+		'symbol' : 'AAPL',
+		'date'   : '2020-03-10',
+		'close'  : 285
+	}
+
+To change the value associated to the key 'close':
+	
+	d['close'] = 293.54
+
+
+Adding a New key:value Pair
+---------------------------
+* if key exists, it will be updated as we just saw
+* if key does not exist, a new entry is inserted with key and value
+		(and this explains why keys in a dictionary are necessarily unique!)
+
+d['open'] = 288.3 // added new key:value pair
+
+
+Deleting a key:value Pair
+-------------------------		
+* use the del keyword
+	
+	del d['open']
+
+
+
+Common Exceptions
+-----------------
+certain operations on dictionaries can lead to KeyError exceptions
+	-> tring to read a non-existent key
+	-> trying to delete a non-existent key
+
+	trying to use a non-hashable object as a key leads to a TypeError exception
+
+		d[[10,20]] = 100
+
+			-> TypeError : unhashable type 'list'
+				-> [10,20] is a list, and lists are not hashable
+				-> cannot be used as a key
+
+** ÖNEMLİ **
+------------
+hash() fonksiyonu kullanarak hashable olup olmadığını öğrenebiliriz.
+
+globals()
+---------
+Python'da globals() fonksiyonu, global (küresel) isim alanındaki tüm değişkenleri ve bunların değerlerini bir sözlük (dictionary) olarak döndürür. Bu, özellikle kodun çalışma zamanında (runtime) global değişkenlerle dinamik olarak çalışmak istendiğinde kullanılır.
+
+globals() sadece global scope için geçerlidir. Fonksiyon içinde çağrıldığında bile, bulunduğun modülün global değişkenlerini verir.
+
+Eğer locals() ile karıştırırsan, locals() fonksiyon ya da sınıf içindeki yerel değişkenleri döndürür.
+
+Kodun okunabilirliği açısından çok fazla kullanılmamalıdır. Dinamik kodlar yazarken dikkatli kullanılmalıdır çünkü hata ayıklamayı zorlaştırır.
+
+	bize dict döndürdüğü için aşağıdaki gibi erişim sağlayabiliyoruz;
+	
+		globals()['person'] 
+
+
+
+Dictionaries are Iterable
+-------------------------
+-> default iteration is over the dictionary keys
+
+	data = {'a': 1, 'b': 2, 'c': 3}
+
+	for k in data:
+		print(k)
+
+
+Iterating over values
+---------------------
+dict ler values() isimli bir methoda sahiptirler.
+	-> values() returns an iterable containing just the values of the dictionary
+	
+	data = {'a': 1, 'b':2, 'c': 3}	
+
+	for v in data.values():
+		print(v)
+
+
+Iterating over key:value Pairs
+------------------------------
+-> dictionaries have a method called items()
+	-> items() returns an iterable containing the keys and values in a tuple
+
+	data = {'a': 1, 'b':2, 'c': 3}	
+
+	for t in data.items():			// ('a', 1)
+		print(t)				->	// ('b', 2)
+									// ('c', 3)
+	-> remember unpacking?
+
+	for k, v in data.items()
+		print(f'{k} = {v}')			// a = 1
+								-> 	// b = 2
+									// c = 3
+
+The keys() Method
+-----------------
+technically there is also a keys() method
+	-> behaves like values() or items()
+	-> but it is an iterable over the keys of the dictionary
+
+	data = {'a': 1, 'b':2, 'c': 3}	
+
+	for k in data.keys():		// a
+		print(k)			->	// b
+								// c
+
+	-> but default iteration is over the keys anyway
+		-> so keys() is not particularly useful for iteration
+
+Insertion Order
+---------------
+Python 3.6 ya kadar sözlüklerin bir sırası yoktu. Fakat 3.6 dan sonra bu durum değişti.
+
+	-> the iteration order reflects the insertion order
+
+what does insertion order mean?
+
+	d = {'Z': 100, 'a':1, 'b': 2}	
+
+	-> literal: insertion order is the order in which the key:value pairs are listed out	
+
+		'Z': 100, 'a': 1, 'b': 2
+	
+	-> adding a new element 	d['x'] = 98
+		-> 'x': 98 was added last, so right now it's the 'last' element
+
+	fakat yine de bu elemenlara index ile erişemeyiz. Öğelere hala key' e göre erişiyoruz, index'e göre değil.
+
+
+Membership Testing
+------------------
+can test if a key exist in a dictionary using in
+	
+	d = {'a' : 1, 'b' : 2}
+
+		'a' in d -> True
+		'x' in d -> False
+
+		-> not in can be used to test if a key is not present
+
+
+Useful Methods and Functions
+----------------------------
+
+d.clear() -> removes all elements from d
+
+d.copy()  -> creates a shallow copy of d
+				-> same as sequences
+				-> use copy.deepcopy() to create a deep copy
+
+len(d)	  -> returns the number of elements in d
+
+
+Other Methods to Create Dictionaries
+------------------------------------
+
+	d = {'a': 1, 'b':2}
+	d = dict(a=1, b=2)
+		-> symbols must be valid variable names and will be used, in string form, as the keys
+
+	-> can create a dictionary with several keys all initialized to the same value
+
+		d = dict.fromkeys(['cnt_1', 'cnt_2', 'cnt_3'],0)
+			d -> {'cnt_1': 0, 'cnt_2': 0, 'cnt_3': 0}
+
+	-> first argument of fromkeys() should be an iterable (list, tuple, string, etc)
+		d = dict.fromkeys('abc', 100)
+			d -> {'a': 100, 'b': 100, 'c': 100}
+
+
+Creating Empty Dictionaries
+---------------------------
+often we create dictionaries that start empty
+	-> and get mutated (modified) as our code runs
+
+-> can use a literal 	d = {}
+
+-> can use the dict() function
+
+
+The get() Method
+----------------
+-> trying to retrieve a non-existent key results in a KeyError exception
+	-> sometimes we want to have a "default" value if a key does not exist
+		-> could use if statements and test is key exist using in
+		-> could try to retrieve the key and handle the exception
+		-> or use the get() method
+
+	* get() can take two arguments
+		-> the key for which we want the corresponding value
+		-> the default value we want to use if key does not exist
+
+	* get() can take a single argument, the key
+		-> default value is None (special object to indicate "nothing")
+
+Example:
+	
+	d = {'length': 10, 'width': 20}
+
+		d.get('length', 0)	-> 10
+
+			the key exists, so the corresponding value(10) is returned
+
+		d.get('height', 0)	-> 0
+
+			the key does not exist, so the default(0) is returned
+
+		d.get('height')	-> None
+
+			the key does not exist, so the default default-value (None) is returned
+
+
+*** Note ***
+-> data in Python is often handled using dictionaries
+when we work with data we often have missing values
+sometimes, not only is the value missing, but the key as well
+
+-> using get() allows us to simplify our code to assign a default for missing keys
+	
+	if 'ssn' in person_dict:
+		social = person_dict['ssn']
+	else:
+		social = ''
+
+
+but instead ->	social = person_dict.get('ssn', '') // ssn isminde bir key varsa onun value sini döndür, eğer yoksa boş string '' döndür
+
+
+Merging one Dictionary into Another
+-----------------------------------
+-> the update() method
+	-> takes a single argument: another dictionary
+
+d1.update(d2)
+	
+	the key:value pairs of d2 will be merged into d1
+		-> keys in d2 not in d1 will be added to d1 (with the value)
+		-> keys in d2 that are present in d1 will overwrite the value in d1 with that of d2
+		-> important: d1 is mutated
+
+Example:
+	
+	d1 = {'a': 1, 'b': 2}
+	d2 = {'b': 30, 'c' : 40}
+
+	d1.update(d2)	d1 -> {'a': 1, 'b': 30, 'c':40}
+
+	d2.update(d1)	d2 -> {'b': 2, 'c': 40, 'a': 1}
+

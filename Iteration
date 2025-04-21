@@ -1,0 +1,205 @@
+
+Iteration
+---------
+
+The range Object
+----------------
+range object is an iterable object
+	-> it serves up integers one by one as they are requested
+	-> but the full list of integers does not exist all at once in memory
+	-> memory efficient
+	-> it has a finite number of integers
+
+we can iterate over that range object
+	-> since it exists and has a finite number of integers -> deterministic iteration
+
+we can use the range() function to create range objects
+
+
+
+The range() Function
+--------------------
+-> three flavors depending on how many arguments are specified
+	
+	range(end) (one argument)
+		-> generates integers from 0 (inclusive) to end (exclusive)
+
+	range(start, end) (two arguments)
+		-> generates integers from start (inclusive) to end (exclusive)
+
+	range(start, end, step)	(three arguments)
+		-> generates integers from start (inclusive) to end (exclusive)
+			-> in steps of step
+
+-> should remind you of slicing
+
+
+
+Viewing Contents of range Object
+--------------------------------
+
+r = range(5)
+print(r)	-> 'range(5)'
+			-> not what we wanted
+
+-> can convert range object to a list or tuple
+
+	print(tuple(r))	-> (0, 1, 2, 3, 4)
+	print(list(r))	-> [0, 1, 2, 3, 4]
+
+Iteration
+---------
+-> range object is iterable
+-> we can use a for loop for iterate over the elements of this iterable
+
+
+for Loops
+---------
+
+Iterating over range Objects
+----------------------------
+-> range objects are iterable
+	
+	for i in range(4):			range(4) -> 0, 1, 2, 3
+		sq = i * i
+		print(sq)
+
+	output: 0
+			1
+			4
+			9
+
+data = [1, 2, 3, -1, 4, -5]
+
+suppose we want to replace any negative value with 0
+
+-> we can iterate over the data and test for negative numbers:
+	
+	for number in data:
+		if number < 0:
+			number = 0
+		print(number)
+
+	-> but how do we replace -1 and -5 with 0?
+		-> easy if we know the index number
+		-> but we don't know that!
+
+The enumerate Function
+----------------------
+enumerate is a function that
+	-> takes an iterable argument
+	-> returns a new iterable whose elements are a tuple consisting of:
+		-> the index number of the original element
+		-> the original element itself
+
+data = [10,20,30,-10,40,-50]
+for t in enumerate(data):
+	print(t)							(0, 10)
+										(1, 20)
+										(2, 30)
+										(3, -10)
+										(4, 40)
+										(5, -5)
+
+-> at each iteration t is a tuple (index, element)
+-> it can be unpacked!
+
+	data = [10, 20, 30, -10, 40, -5]
+	for t in enumerate(data):
+		index, element = t
+		if element < 0:
+			data[index] = 0
+
+but we can do one better -> we can unpack in the for clause itself
+
+	for index, element in enumerate(data):
+		if element < 0:
+			data[index] = 0
+
+
+Skipping an Iteration
+---------------------
+-> sometimes we want to skip an iteration, but without terminating the loop
+	-> continue
+	-> immediately jumps to the next iteration
+
+	my_list = [1,2,3,100,4,5]
+
+	for i in my_list:
+		if i > 50:
+			continue
+		print(i)
+	print('done')
+
+-> continue is not used too often
+	-> can sometimes make code difficult to read/understand
+
+	for i in my_list:
+		if i > 50:
+			continue
+		print(i)
+	print('done')
+
+	-> equivalently:	for i in my_list:
+							if i <= 50:
+								print(i)
+							print('done')
+
+							-> less code, easier to read / understand
+
+Early Termination
+-----------------
+-> loops can be exited early (before all elements have been iterated)
+	-> break
+
+loop terminating early using break
+	-> sometimes called abnormal or early termination
+
+sometimes want to execute some code if loop terminated normally
+	-> and different code otherwise (early/abnormal termination)
+
+	found = False
+
+	for el in my_list:
+		if el == 'Pythong':
+			found = True
+			print('found')
+			break
+	if not found:
+		print('not found')
+
+The else Clause
+---------------
+-> Python is really confusing here...
+
+for loops can have an else clause
+	-> but it has nothing to do with else clause of an if statement
+-> the else clause of a for loop executes if and only if no break was encountered
+
+	for i in range(5):
+		<code block 1>
+	else:	# if no break
+		<code block 2>
+
+			-> <code block 2> executes if loop terminated normally
+
+
+found = False
+
+	for el in my_list:
+		if el == 'Pythong':
+			found = True
+			print('found')
+			break
+	if not found:
+		print('not found')
+
+-> equivalently:
+
+	for el in my_list:
+		if el == 'Python':
+			print('found')
+			break
+	else: # if no break
+		print('not found')
+

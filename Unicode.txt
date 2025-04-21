@@ -1,0 +1,44 @@
+Unicode
+-------
+Unicode, dijital ortamdaki tüm yazı sistemlerini ve karakterleri tek bir standartta temsil etmeyi amaçlayan bir kodlama sistemidir.
+
+code point
+----------
+"Code point", Unicode sisteminde her bir karaktere verilen benzersiz sayıdır.
+
+	A	U+0041
+	a	U+0061
+
+	gibi..
+
+ord() function
+--------------
+-> tek bir karakter için code point döndürür. (in decimal)
+
+	ord('A') // 65
+
+hex() function
+--------------
+-> converts decimal to hex string
+	
+	hex(65) // '0x41'  (0x prefix indicates the number after that is in hex)
+
+
+Other ways to specify the character in a string
+-----------------------------------------------
+Unicode karakterler çok fazla ve klavyemizde çoğu yok. Fakat bunları şu şekilde yazdırabiliriz;
+
+	-> use escape codes
+		-> by hex code 		-> by name
+
+	"\N{Greek Small Letter Alpha}"  -> α 
+	"\u03b1" or "\u03B1" (yani küçük veya büyük b olması fark etmez) -> α 
+
+
+***
+\U ile code point doğrudan yazdırabiliriz. (8 basamaklı hex code point)
+
+	print("\U0000011F")
+
+\u ile ise 4 basamaklı hex code point yazdırabiliriz.
+

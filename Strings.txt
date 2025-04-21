@@ -1,0 +1,215 @@
+Case Mapping
+------------
+
+lower()		'Hello World'.lower() -> 'hello world'
+
+upper()		'python'.upper() -> 'PYTHON'
+
+title()		' one two three'.title() -> 'One Two Three'
+
+***
+returns a new string. primarily used for visual display.
+
+BEWARE: may not work for caseless comparisons
+
+
+Case Folding
+------------
+
+casefold()	-> used for caseless comparisons
+
+	s1 = 'hello'
+	s2 = 'HeLlo'
+
+	s1.casefold() == s2.casefold() -> True
+
+
+Stripping
+---------
+sometimes we want to remove leading and trailing characters
+
+-> trailing commas
+-> white space around a string
+
+	.lstrip()	-> strips all whitespace on left of string
+	.rstrip()	-> strips all whitespaces on right of string
+	.strip()	-> strips all whitespace on both ends of string
+
+	-> can specify what characters to strip
+
+	.strip(' ')	 	-> strip space characters from both ends
+	.lstrip('abc')	-> strip the characters 'a', 'b', 'c' from left and
+
+	-> returns a new string
+
+Concatenation
+-------------
+combining two or more strings to form a single is called concatenation
+
+	'Hello' + ' ' + 'World!'
+
+	-> again this creates a new string
+
+
+Splitting Strings
+-----------------
+-> useful for parsing data from a text file
+	
+	data = '100, 200, 300, 400' 	<- a string containing comma delimited values
+
+-> can easily split this on the comma
+	
+	data.split(',')
+
+-> returns a list of strings	['100', ' 200', ' 300', ' 400'] // note the spaces, we can strip them later
+
+
+Joining Strings
+---------------
+-> this is the opposite of splitting strings
+
+suppose we want to join these strings with ', ' characters between each:
+	
+	data = ('ab', 'cd', 'ef')	-> data is a sequence of strings
+
+	'--'.join(data)		-> join the strings in data with -- in between
+						-> 'ab--cd--ef'
+
+	','.join(['10', '20', '30'])	-> '10,20,30'
+
+	-> remember that a string is a sequence of single characters
+
+	'='.join('python')	-> 'p=y=t=h=o=n'
+
+
+Findings Substrings
+-------------------
+-> often just want to know if a sequence of characters is contained inside another
+-> use the in operator
+
+	'x' 	in 	'xyz'		-> True
+	'a' 	in 	'xyz'		-> False
+	'pyt' 	in 	'python'	-> True
+	'pyt' 	in 	'Python'	->False
+
+-> test containment
+	-> but gives no indication of where the substring is
+
+-> slight variation
+	-> does the string start (or end) with the specified characters
+	-> still a containment test
+
+	.startswith('...')		.endswith('...')
+
+	'python'.startswith('py')	-> True
+	'python'.startswith('hon')	-> False
+
+
+Finding the Index of a Substring
+--------------------------------
+-> used when we need to know the index of the start position of a substring
+	
+	data = 'This is a grammatically correct sentence'
+
+	-> at what index does the string 'correct' occur?
+
+		data.index('correct')	-> 24
+
+	-> what if substring is not found?
+		-> Python raises a ValueError
+		-> potentially useful once we learn how to hand exceptions
+
+-> what if we don't want an exception?
+	-> find method -> returns -1 if substring is not found
+
+	data = 'This is a grammatically correct sentence.'
+
+	data.find('correct') -> 24
+	data.find('DOW')	 -> -1
+
+-> once we know how to handle exceptions, this method is a bit redundant
+
+
+Important Note
+--------------
+-> only interested in whether or not a  substring is contained in another string
+	-> use in
+
+-> only use index or find when you need to know the index
+	-> in is much faster!
+
+
+String Interpolation
+--------------------
+-> often we want to build strings that contain values from some variable
+-> can use concatenation
+
+	-> + works with two strings
+	-> cannot mix string and numeric for example
+		'test' + 100 -> TypeError
+
+'test' + str(100) -> 'test100'
+
+Example:
+	Suppose we have four variables: open_ = 98
+									high  = 100
+									low   = 95
+									close = 99
+
+	We want to build a string that looks like this for display purposes:
+		'open: 98, high: 100, low: 95, close: 99'
+
+	-> using concatenation:
+
+	'open: ' + str(open_) + ', high: ' + str(high) .....
+
+	-> tedious and error prone!
+
+String Interpolation
+--------------------
+-> multiple variants -> two most common techniques
+-> the format method
+	-> use {} as placeholders in our string
+	-> pass variables to format method in same order as we want them in the string
+	-> number of {} in string and arguments in format should match
+		-> format can have more arguments, they'll just be ignored
+		-> IndexError exception if not enough arguments
+
+	'open: {}, high: {}, low: {}, close: {}'.format(open_, high, low, close)
+	-> note how we did not have to convert the values to strings!
+
+
+f Strings
+---------
+-> prefix the string with f
+-> use {expr} directly inside the string
+-> Python evaluates expr and interpolates the result directly inside the string
+
+	f'1 + 1 = {1 + 1}' -> '1 + 1 = 2'
+
+	value = 3.14
+	f'pi is approximately {value}' -> 'pi is approximately 3.14'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
