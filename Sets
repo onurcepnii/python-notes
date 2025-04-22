@@ -1,0 +1,185 @@
+
+Python Sets
+-----------
+just like a mathematical set
+	* a collection of elements
+	* no ordering to the elements
+	* each element is unique
+
+it is an iterable
+	* but no guarantee on what the iteration order will be
+
+bir torbadaki misketleri düşünelim. tüm misketleri almak için elimizi sokup bir tane
+misket alırız. ve torbada misket kalmayıncaya kadar böyle yaparız. bu şekilde iterate etmiş oluruz fakat sıralama rastgele olmuş olur. yani sıralı bir iteration yok.
+
+
+
+think back to keys in a dictionary
+	* they are unique
+	* they are iterable
+	* they have no particular order (well, Python 3.6 maintains insertion order)
+	* keys can be added or removed (dictionary is mutable)
+	* they are hashable too
+
+does that remind you of a set?
+	* we can think of the keys in a dictionary as a set
+
+	-> Python's implementation of sets is essentially like a dictionary
+		-> but no values, only keys
+		-> because of this, set elements must be hashable too
+
+Python Sets
+-----------
+-> type is set
+-> sets are iterable
+-> iteration order is not guaranteed(at least not yet)
+-> set elements must be hashable
+-> sets are mutable
+	-> sets are not hashable
+		-> a set cannot be an element of another set, or a key in a dictionary
+		-> if you really want really sets, use frozenset
+			-> immutable equivalent of sets - those are hashable
+				(if all the elements are, themselves, hashable)
+
+
+Defining Sets
+-------------
+-> literal form {1, 'a', True}
+	-> note the {} - just like for dictionaries
+	-> but no key:value pairs, just the "keys"
+
+-> can also use the set() function
+		set([1, 'a', True])
+
+-> empty set 	-> cannot use {}
+				-> that would be an empty dictionary
+				-> set()
+
+	
+-> can also make a set from any iterable (of hashable elements)
+	l = [1, 2, 3, 4, 5]
+	
+	s = set(l)	s -> {1,2,3,4,5}
+
+	l = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+	s = set(l)	s -> {1,2,3,4,5}
+
+	s = set('python')	s -> {'p','y','t','h','o','n'}
+
+	s = set('parrot')	s -> {'p','a','r','o','t'}
+
+
+***
+
+-> use a for loop for iteration
+-> use in for membership testing
+-> len(s) returns the number of elements in the set
+-> s.clear() removes all the elements of the set
+-> s.copy() creates a shallow copy
+
+
+Common Set Operations
+---------------------
+
+Disjointedness
+--------------
+-> two sets are disjoint if they have no elements in common
+
+	s1.isdisjoint(s2)
+		-> True if no common elements exist
+		-> False if one or more common elements exist
+
+		(two elements a and b are considered the same if a == b is True)
+
+
+Adding and Removing Elements
+----------------------------
+
+	s = {10, 'b', True}
+	s.add(4)
+
+	s.add('b')	 	s -> {10, 'b', True}
+
+	s.remove('b')	s -> {10, True}
+	s.remove(100)	-> KeyError
+
+	s.discard(4)	s -> {10, True}
+	s.discard(100)	s -> no exception s -> {10, True}
+
+Yani discard ile remove'un arasındaki tek fark; remove ile mevcut olmayan bir öğeyi silmeye çalışırsak exception throw eder fakat discard ile yaparsak etmez.
+
+
+Subsets and Supersets
+---------------------
+
+s1 <  s2		-> True if s1 is a strict subset of s2
+s1 <= s2		-> True if s1 is a subset of s2
+s1 >  s2		-> True if s1 is a strict superset of s2
+s1 >= s2		-> True if s1 is a superset of s2
+
+{1,2} <  {1,2,3} -> True	{1,2} < {1,2}	-> False
+{1,2} <= {1,2,3} -> True	{1,2} <= {1,2}	-> True
+
+{1,2,3} >  {1,2} -> True	{1,2} >  {1,2} -> False
+{1,2,3} >= {1,2} -> True	{1,2} >= {1,2} -> True
+
+
+
+
+Unions and Intersections
+------------------------
+
+s1 | s2 	-> returns the *union* of s1 and s2
+
+s1 & s2		-> returns the *intersection* of s1 and s2
+
+s1 = {1,2,3}
+s2 = {3,4,5}
+
+s1 | s2 -> {1,2,3,4,5}
+
+s1 & s2 -> {3}
+
+
+
+Set Difference
+--------------
+
+caution: set difference is not commutative
+	
+	so s1 - s2 is not equal to s2 - s1
+
+s1 = {1,2,3}
+s2 = {3,4,5}
+
+s1 - s2 	-> {1,2}
+s2 - s1 	-> {4,5}
+
+
+-------------
+* IMPORTANT *
+-------------
+- membership testing set'lerde list veya tuple'lara göre çok daha hızlıdır.
+
+- easy to eliminate duplicate values from a collection
+	-> eğer elimizde bir list veya tuple var diyelim ve biz burdaki tekrar eden değerleri remove etmek istiyoruz. bunu bir set haline getirerek otomatik yapabiliriz.
+
+- easy to find common values between two collections
+	-> örneğin elimizde iki list var ve bu listelerin common value lerini bulmak istiyoruz. onları direk set yaparız ve intersect işlemine sokarız.
+
+- easy to find values in one collection but not in another.
+	-> set difference ile bunu kolayca çözeriz.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
